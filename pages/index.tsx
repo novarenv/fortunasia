@@ -11,10 +11,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useState } from "react";
 
-const _onReady = (event: { target: { pauseVideo: () => void } }) => {
-  // access to player in all event handlers via event.target
-  event.target.pauseVideo();
-};
+// const _onReady = (event: { target: { pauseVideo: () => void } }) => {
+//   // access to player in all event handlers via event.target
+//   event.target.pauseVideo();
+// };
 
 const ProductComp = ({ title }) => {
   return (
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
                   FORTUNASIA
                 </p>
                 <p className="text-2xl md:text-3xl pt-8">
-                  Fulfilling the world's needs
+                  {"Fulfilling the world's needs"}
                 </p>
                 <p className="text-2xl md:text-3xl">
                   of{" "}
