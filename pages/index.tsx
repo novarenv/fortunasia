@@ -38,7 +38,7 @@ const ProductComp = ({ title }) => {
   );
 };
 
-const ValueComp = ({ title }) => {
+const ValueComp = (title: String) => {
   const [content, setContent] = useState(
     "We prioritize honesty in each and every duties to build trust from our direct customers to end-consumers all across the globe."
   );
