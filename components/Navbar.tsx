@@ -10,10 +10,10 @@ export const Navbar = () => {
   };
 
   const innerNavClass =
-    "lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-black font-bold items-center justify-center hover:bg-green-200 hover:text-black";
+    "lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-300 font-bold items-center justify-center hover:bg-green-200 hover:text-black";
 
   return (
-    <div className="sticky w-full z-10 top-0 pl-4 bg-transparent">
+    <div className="fixed w-full z-10 top-0 pl-4 bg-transparent">
       <nav className="flex items-center flex-wrap p-3">
         <Link href="/">
           <div className="inline-flex items-center p-2 mr-4 cursor-pointer">

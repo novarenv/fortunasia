@@ -16,29 +16,7 @@ import { useState } from "react";
 //   event.target.pauseVideo();
 // };
 
-const ProductComp = ({ title }: { title: string }) => {
-  return (
-    <div className="md:col-span-3 col-span-12 cursor-pointer mx-4 my-2">
-      <Link href={"/product/" + title.toLowerCase()}>
-        <div>
-          <div className="flex justify-center text-xl font-semibold">
-            {title}
-          </div>
-          <div className="mt-2 rounded-md">
-            <Image
-              src="/categories/tobacco1x1.jpg"
-              width="20"
-              height="20"
-              layout="responsive"
-            />
-          </div>
-        </div>
-      </Link>
-    </div>
-  );
-};
-
-const ValueComp = ({ title }: { title: string }) => {
+const ValueComp = ({ title, img }: { title: string; img: string }) => {
   const [content, setContent] = useState(
     "We prioritize honesty in each and every duties to build trust from our direct customers to end-consumers all across the globe."
   );
@@ -46,17 +24,14 @@ const ValueComp = ({ title }: { title: string }) => {
   return (
     <div className="grid md:grid-cols-12 grid-flow-row md:col-span-3 col-span-12 mr-8 my-2">
       <div className="flex md:col-span-4 lg:col-span-3 items-center md:mx-2 lg:mx-0">
-        <div className="md:w-24 md:h-24 lg:w-40 lg:h-40">
-          <Image
-            src="/categories/tobacco1x1.jpg"
-            width="100"
-            height="100"
-            layout="responsive"
-          />
+        <div className="w-full h-full md:w-24 md:h-24 lg:w-40 lg:h-40 mt-2 md:mt-0">
+          <Image src={img} width="100" height="100" layout="responsive" />
         </div>
       </div>
       <div className="md:col-span-8 lg:col-span-9">
-        <div className="flex text-2xl font-bold text-white">{title}</div>
+        <div className="flex pt-4 md:pt-0 text-2xl font-bold text-white">
+          {title}
+        </div>
         <div className="text-xl mt-1 text-justify text-white">
           We prioritize honesty in each and every duties to build trust from our
           direct customers to end-consumers all across the globe.
@@ -117,8 +92,8 @@ const Home: NextPage = () => {
           {/* Bg Logo Ver */}
           <SwiperSlide>
             <div
-              className="flex justify-center items-center bg-[url('/bgLeaves.jpg')]"
-              style={{ width: 2000, height: 1000 }}
+              className="flex justify-center items-center bg-[url('/bgLeaves.jpg')] bg-cover bg-center"
+              style={{ height: 1000 }}
             >
               <div>
                 <div className="text-center text-2xl md:text-3xl text-gray-100">
@@ -136,8 +111,8 @@ const Home: NextPage = () => {
 
           <SwiperSlide>
             <div
-              className="flex px-20 items-center bg-[url('/bgLeaves.jpg')]"
-              style={{ width: 2000, height: 1000 }}
+              className="flex px-20 items-center bg-[url('/fieldTop.jpg')] bg-cover bg-center"
+              style={{ height: 1000 }}
             >
               <div>
                 <div className="text-2xl md:text-9xl text-white font-semibold">
@@ -158,8 +133,8 @@ const Home: NextPage = () => {
           <SwiperSlide>
             <div
               id="aboutUs"
-              className="flex px-20 items-center bg-[url('/bgLeaves.jpg')]"
-              style={{ width: 2000, height: 1000 }}
+              className="flex px-20 items-center bg-[url('/farmer.jpg')] bg-cover bg-center"
+              style={{ height: 1000 }}
             >
               <div>
                 <div className="md:col-span-6 md:px-10">
@@ -191,8 +166,8 @@ const Home: NextPage = () => {
 
           <SwiperSlide>
             <div
-              className="flex justify-center items-center bg-[url('/bgLeaves.jpg')]"
-              style={{ width: 2000, height: 1000 }}
+              className="flex justify-center items-center bg-[url('/fieldHill.jpg')] bg-cover bg-center"
+              style={{ height: 1000 }}
             >
               <div>
                 <div className="text-center text-2xl md:text-3xl text-gray-100">
@@ -214,10 +189,8 @@ const Home: NextPage = () => {
       </div>
 
       <div id="ours" className="grid md:grid-cols-12 flex-row bg-green-700">
-        <div className="md:col-span-2 md:w-24 md:h-24 lg:w-full lg:h-full">
-          <Image src="/categories/tobacco1x1.jpg" width="400" height="920" />
-        </div>
-        <div className="md:col-span-10 md:p-16">
+        <div className="md:col-span-2 md:w-full md:h-full h-60 grid bg-[url('/farmField.jpg')] bg-cover bg-center" />
+        <div className="md:col-span-10 p-8 md:p-16">
           <div id="vision" className="mt-8">
             <div className="flex text-4xl md:text-6xl font-semibold text-white">
               Our Vision
@@ -233,19 +206,22 @@ const Home: NextPage = () => {
               Our Value
             </div>
             <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
-              <ValueComp title="TRUST" />
-              <ValueComp title="QUALITY" />
+              <ValueComp title="TRUST" img="/icons/handshake.png" />
+              <ValueComp title="QUALITY" img="/icons/thumbUp.png" />
             </div>
             <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
-              <ValueComp title="HUMANITY" />
-              <ValueComp title="SUSTAINABILITY" />
+              <ValueComp title="HUMANITY" img="/icons/humanity.png" />
+              <ValueComp title="SUSTAINABILITY" img="/icons/responsive.png" />
+            </div>
+            <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
+              <ValueComp title="ENVIRONMENT" img="/icons/environment.png" />
             </div>
           </div>
         </div>
       </div>
       <div>
         <div id="product" className="pt-8">
-          <div className="flex justify-center text-4xl md:text-6xl font-semibold md:mb-12 text-green-600">
+          <div className="flex justify-center text-4xl md:text-6xl pb-8 md:pb-0 font-semibold md:mb-12 text-green-600">
             Our Products
           </div>
 
@@ -258,132 +234,404 @@ const Home: NextPage = () => {
             onSwiper={(swiper) => console.log(swiper)}
             autoplay={{ delay: 2000 }}
           >
-            <SwiperSlide>
-              <div className="w-full relative" style={{ height: 1000 }}>
+            <SwiperSlide className="translate-x-0">
+              <div className="w-full relative h-full">
                 <div className="md:fixed md:top-12 md:left-48">
                   <Image
-                    src="/categories/tobacco1x1.jpg"
+                    src="/categories/moringaTp.png"
                     width="400"
                     height="280"
                   />
                 </div>
 
                 <div className="flex bg-green-800 justify-end">
-                  <div className="text-white text-9xl font-bold py-8 pr-16">
-                    04
+                  <div className="text-white text-6xl md:text-9xl font-bold py-8 pr-16">
+                    01
                   </div>
                 </div>
-                <div className="grid grid-cols-12 h-full">
-                  <div className="flex justify-center items-center col-span-2">
+                <div className="grid md:grid-cols-12 h-fit">
+                  <div className="md:flex justify-center items-center col-span-2 hidden">
                     <div
-                      className="text-center rotate-180 text-4xl font-semibold tracking-widest"
+                      className="text-center rotate-180 indent-12 text-4xl font-semibold tracking-widest pb-8"
                       style={{ writingMode: "vertical-rl" }}
                     >
                       DISCOVER OUR PRODUCTS
                     </div>
                   </div>
-                  <div className="col-span-10">
+                  <div className="md:col-span-10 p-8 md:p-0">
                     <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
                       Moringa Oleifera
                     </div>
-                    <div className="text-justify text-xl md:text-xl">
-                      Moringa oleifera is a plant that can be consumed
-                    </div>
-                    <div className="text-justify text-xl md:text-xl">
-                      and used as herbal medicine. We have selected the
-                    </div>
-                    <div className="text-justify text-xl md:text-xl">
-                      <a className="font-semibold">finest quality</a> of Moringa
-                      in Indonesia
+                    <div className="grid md:grid-cols-12">
+                      <div className="md:col-span-8 text-justify text-xl md:text-3xl">
+                        Moringa oleifera is a plant that can be consumed and
+                        used as herbal medicine. We have selected the
+                        <a className="font-semibold"> finest quality</a> of
+                        Moringa in Indonesia
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-12 mt-24">
-                      <div className="col-span-2 text-xl font-semibold">
+                    <div className="grid grid-cols-12 mt-16">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
                         Forms
                       </div>
-                      <div className="col-span-10 text-xl">
+                      <div className="col-span-8 md:col-span-10 text-xl">
                         : Dried leaves, seeds
                       </div>
                     </div>
                     <div className="grid grid-cols-12">
-                      <div className="col-span-2 text-xl font-semibold">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
                         Packaging Type
                       </div>
-                      <div className="col-span-10 text-xl">
+                      <div className="col-span-8 md:col-span-10 text-xl">
                         : Depending on request
                       </div>
                     </div>
                     <div className="grid grid-cols-12">
-                      <div className="col-span-2 text-xl font-semibold">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
                         Self life
                       </div>
-                      <div className="col-span-10 text-xl">: 6-12 months</div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : 6-12 months
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </SwiperSlide>
 
-            <SwiperSlide>
-              <div className="w-full relative" style={{ height: 1000 }}>
+            <SwiperSlide className="translate-x-0">
+              <div className="w-full relative h-full">
                 <div className="md:fixed md:top-12 md:left-48">
                   <Image
-                    src="/categories/tobacco1x1.jpg"
+                    src="/categories/coconutTp.png"
                     width="400"
                     height="280"
                   />
                 </div>
 
                 <div className="flex bg-green-800 justify-end">
-                  <div className="text-white text-9xl font-bold py-8 pr-16">
-                    05
+                  <div className="text-white text-6xl md:text-9xl font-bold py-8 pr-16">
+                    02
                   </div>
                 </div>
-                <div className="grid grid-cols-12 h-full">
-                  <div className="flex justify-center items-center col-span-2">
+                <div className="grid md:grid-cols-12 h-fit">
+                  <div className="md:flex justify-center items-center col-span-2 hidden">
                     <div
-                      className="text-center rotate-180 text-4xl font-semibold tracking-widest"
+                      className="text-center rotate-180 indent-12 text-4xl font-semibold tracking-widest pb-8"
                       style={{ writingMode: "vertical-rl" }}
                     >
                       DISCOVER OUR PRODUCTS
                     </div>
                   </div>
-                  <div className="col-span-10">
+                  <div className="md:col-span-10 p-8 md:p-0">
                     <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
-                      Moringa Oleifera
+                      Copra
                     </div>
-                    <div className="text-justify text-xl md:text-xl">
-                      Moringa oleifera is a plant that can be consumed
-                    </div>
-                    <div className="text-justify text-xl md:text-xl">
-                      and used as herbal medicine. We have selected the
-                    </div>
-                    <div className="text-justify text-xl md:text-xl">
-                      <a className="font-semibold">finest quality</a> of Moringa
-                      in Indonesia
+                    <div className="grid md:grid-cols-12">
+                      <div className="md:col-span-8 text-justify text-xl md:text-3xl">
+                        Copra is one of the most important coconut derivative
+                        products, because it is the raw material for making
+                        coconut oil and its derivatives.Coconut oil is used as a
+                        raw material for cosmetic products, industry (soap,
+                        shampoo), medicine, biodiesel, chemical mixtures,
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-12 mt-24">
-                      <div className="col-span-2 text-xl font-semibold">
+                    <div className="grid grid-cols-12 mt-16">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
                         Forms
                       </div>
-                      <div className="col-span-10 text-xl">
-                        : Dried leaves, seeds
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Dried, half cut, white copra, black copra
                       </div>
                     </div>
                     <div className="grid grid-cols-12">
-                      <div className="col-span-2 text-xl font-semibold">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
                         Packaging Type
                       </div>
-                      <div className="col-span-10 text-xl">
+                      <div className="col-span-8 md:col-span-10 text-xl">
                         : Depending on request
                       </div>
                     </div>
                     <div className="grid grid-cols-12">
-                      <div className="col-span-2 text-xl font-semibold">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
                         Self life
                       </div>
-                      <div className="col-span-10 text-xl">: 6-12 months</div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : 6 months
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide className="translate-x-0">
+              <div className="w-full relative h-full">
+                <div className="md:fixed md:top-12 md:left-48">
+                  <Image
+                    src="/categories/nutmegTp.png"
+                    width="400"
+                    height="280"
+                  />
+                </div>
+
+                <div className="flex bg-green-800 justify-end">
+                  <div className="text-white text-6xl md:text-9xl font-bold py-8 pr-16">
+                    03
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-12 h-fit">
+                  <div className="md:flex justify-center items-center col-span-2 hidden">
+                    <div
+                      className="text-center rotate-180 indent-12 text-4xl font-semibold tracking-widest pb-8"
+                      style={{ writingMode: "vertical-rl" }}
+                    >
+                      DISCOVER OUR PRODUCTS
+                    </div>
+                  </div>
+                  <div className="md:col-span-10 p-8 md:p-0">
+                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                      Nutmeg
+                    </div>
+                    <div className="grid md:grid-cols-12">
+                      <div className="md:col-span-8 text-justify text-xl md:text-3xl">
+                        Nutmeg is a tree-shaped plant originating from the Banda
+                        Islands, Maluku. As highly valued spices, nutmeg have
+                        been important trading commodities. We have selected the
+                        best quality nutmeg in several regions in Indonesia.
+                        Some of the benefits of nutmeg is basic ingredients of
+                        syrup and candy. As well as being the basic ingredient
+                        of herbal oils.
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-12 mt-16">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Forms
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Long, whole, shelled or without, broken.
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Packaging Type
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Depending on request
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Self life
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : 2 years
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide className="translate-x-0">
+              <div className="w-full relative h-full">
+                <div className="md:fixed md:top-12 md:left-48">
+                  <Image
+                    src="/categories/cinnamonTp.png"
+                    width="400"
+                    height="280"
+                  />
+                </div>
+
+                <div className="flex bg-green-800 justify-end">
+                  <div className="text-white text-6xl md:text-9xl font-bold py-8 pr-16">
+                    04
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-12 h-fit">
+                  <div className="md:flex justify-center items-center col-span-2 hidden">
+                    <div
+                      className="text-center rotate-180 indent-12 text-4xl font-semibold tracking-widest pb-8"
+                      style={{ writingMode: "vertical-rl" }}
+                    >
+                      DISCOVER OUR PRODUCTS
+                    </div>
+                  </div>
+                  <div className="md:col-span-10 p-8 md:p-0">
+                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                      Cinnamon
+                    </div>
+                    <div className="grid md:grid-cols-12">
+                      <div className="md:col-span-8 text-justify text-xl md:text-3xl">
+                        Cinnamon is a type of long-lived plant that produces
+                        bark which is used as a spice (spices). Apart from being
+                        used as a food spice, is also used as an antiseptic
+                        because asiri has the power to kill microorganisms. In
+                        addition, the oil can be used in industry as a mouthwash
+                        and paste, soap fragrance freshener, detergent, lotion,
+                        perfume and cream.
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-12 mt-16">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Forms
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Rolled, powder, and cut.
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Packaging Type
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Depending on request
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Self life
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : 2 years
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide className="translate-x-0">
+              <div className="w-full relative h-full">
+                <div className="md:fixed md:top-12 md:left-48">
+                  <Image
+                    src="/categories/cloveTp.png"
+                    width="400"
+                    height="280"
+                  />
+                </div>
+
+                <div className="flex bg-green-800 justify-end">
+                  <div className="text-white text-6xl md:text-9xl font-bold py-8 pr-16">
+                    05
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-12 h-fit">
+                  <div className="md:flex justify-center items-center col-span-2 hidden">
+                    <div
+                      className="text-center rotate-180 indent-12 text-4xl font-semibold tracking-widest pb-8"
+                      style={{ writingMode: "vertical-rl" }}
+                    >
+                      DISCOVER OUR PRODUCTS
+                    </div>
+                  </div>
+                  <div className="md:col-span-10 p-8 md:p-0">
+                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                      Cloves
+                    </div>
+                    <div className="grid md:grid-cols-12">
+                      <div className="md:col-span-8 text-justify text-xl md:text-3xl">
+                        Cloves are the aromatic dried flower buds of a tree.
+                        They are native to the Maluku islands in Indonesia and
+                        used as a spice in cuisines all over the world.
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-12 mt-16">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Forms
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Whole cloves
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Packaging Type
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Depending on request
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Self life
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : 3-4 years
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide className="translate-x-0">
+              <div className="w-full relative h-full">
+                <div className="md:fixed md:top-12 md:left-48">
+                  <Image
+                    src="/categories/tobaccoTp.png"
+                    width="400"
+                    height="280"
+                  />
+                </div>
+
+                <div className="flex bg-green-800 justify-end">
+                  <div className="text-white text-6xl md:text-9xl font-bold py-8 pr-16">
+                    06
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-12 h-fit">
+                  <div className="md:flex justify-center items-center col-span-2 hidden">
+                    <div
+                      className="text-center rotate-180 indent-12 text-4xl font-semibold tracking-widest pb-8"
+                      style={{ writingMode: "vertical-rl" }}
+                    >
+                      DISCOVER OUR PRODUCTS
+                    </div>
+                  </div>
+                  <div className="md:col-span-10 p-8 md:p-0">
+                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                      Tobacco
+                    </div>
+                    <div className="grid md:grid-cols-12">
+                      <div className="md:col-span-8 text-justify text-xl md:text-3xl">
+                        Tobacco is a group of plants whose leaves are commonly
+                        used as raw materials for making cigarettes. Namely as
+                        raw material for cigarettes and cigars. We have chosen
+                        the finest quality tobacco from our farmers spread
+                        across several regions in Indonesia.
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-12 mt-16">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Forms
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Rough cut and <a className="font-semibold">Shag</a>{" "}
+                        (fine cut)
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Packaging Type
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : Depending on request
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12">
+                      <div className="col-span-4 md:col-span-2 text-xl font-semibold">
+                        Self life
+                      </div>
+                      <div className="col-span-8 md:col-span-10 text-xl">
+                        : 3-4 years
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -392,19 +640,19 @@ const Home: NextPage = () => {
           </Swiper>
         </div>
 
-        <div id="reviews" className="py-8 bg-green-600">
+        {/* <div id="reviews" className="py-8 bg-green-600">
           <div className="text-center text-2xl md:text-6xl font-semibold text-white">
             Testimonials/Comments
           </div>
           <div className="flex justify-center mt-4 text-xl md:text-3xl"></div>
-        </div>
+        </div> */}
 
-        <div id="faq" className="py-8">
-          <div className="flex justify-center text-4xl md:text-6xl font-semibold text-green-600">
+        {/* <div id="faq" className="py-8 bg-green-800">
+          <div className="flex justify-center text-4xl md:text-6xl font-semibold text-white">
             FAQ
           </div>
           <div className="flex justify-center mt-4 text-xl md:text-3xl"></div>
-        </div>
+        </div> */}
 
         {/* <div id="__next" style={{ height: 300 }}>
           <div id="map" ref={googleMap} />
@@ -441,15 +689,50 @@ const Home: NextPage = () => {
             Kec. Benowo, Kota Surabaya, Jawa Timur 60191
           </div>
           <div id="icons" className="flex flex-row mt-2">
-            <div className="mr-2">FB</div>
-            <div className="mr-2">LI</div>
-            <div className="mr-2">TL</div>
-            <div className="mr-2">TW</div>
+            <div className="w-8 h-8 mt-2 mr-4">
+              <Image
+                src="/icons/facebook.png"
+                width="60"
+                height="60"
+                layout="responsive"
+              />
+            </div>
+            <div className="w-8 h-8 mt-2 mr-4">
+              <Image
+                src="/icons/linkedIn.png"
+                width="60"
+                height="60"
+                layout="responsive"
+              />
+            </div>
+            <div className="w-8 h-8 mt-2 mr-4">
+              <Image
+                src="/icons/telegram.png"
+                width="60"
+                height="60"
+                layout="responsive"
+              />
+            </div>
+            <div className="w-8 h-8 mt-2 mr-4">
+              <Image
+                src="/icons/twitter.png"
+                width="60"
+                height="60"
+                layout="responsive"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="text-2xl font-semi pl-8 pb-4 bg-green-50">
-        C 2022 Fortuna Asia. All rights reserved
+      <div className="flex text-2xl font-semi pl-8 pb-4 bg-white tracking-widest">
+        <div className="w-4 h-4 mr-1 mt-1">
+          <Image
+            src="/icons/copyright.png"
+            width="60"
+            height="60"
+            layout="responsive"
+          />
+        </div> 2022 Fortuna Asia. All rights reserved
       </div>
     </div>
   );
