@@ -70,12 +70,12 @@ export const Navbar = () => {
             <Link href="/#product">
               <a className={innerNavClass}>Product</a>
             </Link>
-            <Link href="/#footer">
+            {/* <Link href="/#footer">
               <a className={innerNavClass}>Contacts</a>
             </Link>
             <Link href="/#faq">
               <a className={innerNavClass}>FAQ</a>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </nav>
