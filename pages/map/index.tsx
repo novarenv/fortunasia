@@ -1,5 +1,6 @@
+import { Loader } from "@googlemaps/js-api-loader";
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Map: NextPage = () => {
   const [defaultCenter, setDefaultCenter] = useState({
@@ -48,8 +49,44 @@ const Map: NextPage = () => {
   //     });
   //   });
   // };
+  
+  const googleMap = useRef(null);
 
-  return <div id="google-map" />;
+  useEffect(() => {
+    const loader = new Loader({
+      apiKey: "AIzaSyDo5e7_f22WLnOEp2YePCvUrI_7ARVTuyo",
+      version: "weekly",
+      libraries: ["places"],
+    });
+
+    let map;
+
+    const mapOptions = {
+      center: {
+        lat: 0,
+        lng: 0,
+      },
+      zoom: 8,
+    };
+    loader
+      .load()
+      .then(() => {
+        const google = window.google;
+
+        console.log("Map");
+
+        if (googleMap.current) {
+
+          console.log("GMap");
+          map = new google.maps.Map(googleMap.current, mapOptions);
+        }
+      })
+      .catch((e) => {
+        console.log("Error ", e);
+      });
+  }, []);
+
+  return <div id="map" ref={googleMap} />;
 };
 
 export default Map;

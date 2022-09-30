@@ -26,7 +26,7 @@ export const Navbar = () => {
             </svg> */}
             <div style={{ width: 128 }}>
               <Image
-                src="/fortunasiaHor.png"
+                src="/fortunasiaHorWhite.png"
                 width="128"
                 height="36"
                 layout="responsive"
@@ -35,8 +35,8 @@ export const Navbar = () => {
           </div>
         </Link>
 
-        <button
-          className="inline-flex p-3 hover:bg-green-200 rounded lg:hidden text-black ml-auto hover:text-black outline-none"
+        <div
+          className="inline-flex p-3 hover:bg-green-200 rounded lg:hidden text-gray-300 ml-auto hover:text-black outline-none"
           onClick={handleClick}
         >
           <svg
@@ -53,7 +53,7 @@ export const Navbar = () => {
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
-        </button>
+        </div>
 
         <div
           className={`${

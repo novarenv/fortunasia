@@ -9,7 +9,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { mail } from "./api/mail";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import { Loader } from "@googlemaps/js-api-loader";
+
+// import Map from "./map";
 
 // const _onReady = (event: { target: { pauseVideo: () => void } }) => {
 //   // access to player in all event handlers via event.target
@@ -23,8 +28,8 @@ const ValueComp = ({ title, img }: { title: string; img: string }) => {
 
   return (
     <div className="grid md:grid-cols-12 grid-flow-row md:col-span-3 col-span-12 mr-8 my-2">
-      <div className="flex md:col-span-4 lg:col-span-3 items-center md:mx-2 lg:mx-0">
-        <div className="w-full h-full md:w-24 md:h-24 lg:w-40 lg:h-40 mt-2 md:mt-0">
+      <div className="flex md:col-span-4 lg:col-span-3 items-center md:mx-2 lg:mx-0 justify-center">
+        <div className="w-32 h-32 md:w-24 md:h-24 lg:w-40 lg:h-40 mt-2 md:mt-0 md:p-8">
           <Image src={img} width="100" height="100" layout="responsive" />
         </div>
       </div>
@@ -41,36 +46,37 @@ const ValueComp = ({ title, img }: { title: string; img: string }) => {
   );
 };
 
+function Map() {
+  const center = useMemo(() => ({ lat: -7.2224645, lng: 112.6568938 }), []);
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDo5e7_f22WLnOEp2YePCvUrI_7ARVTuyo",
+  });
+
+  if (!isLoaded) return <div>Loading..</div>;
+  return (
+    <GoogleMap
+      zoom={16}
+      center={center}
+      mapContainerClassName="w-72 h-72 md:w-96 md:h-96 mt-8 md:m-0"
+      // mapContainerStyle={{ width: "280px", height: "280px" }}
+    >
+      <Marker
+        position={center}
+        title={"The marker`s title will appear as a tooltip."}
+        key={1}
+      />
+    </GoogleMap>
+  );
+}
+
 const Home: NextPage = () => {
-  // const googleMap = useRef<HTMLDivElement>(null);
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyDo5e7_f22WLnOEp2YePCvUrI_7ARVTuyo",
+  });
 
-  // useEffect(() => {
-  //   const loader = new Loader({
-  //     apiKey: "AIzaSyCbHev08CqaxIB7fgKEa7OUxqGLPjuxWCU",
-  //     version: "weekly",
-  //     libraries: ["places"],
-  //   });
-
-  //   const mapOptions = {
-  //     center: {
-  //       lat: 0,
-  //       lng: 0,
-  //     },
-  //     zoom: 4,
-  //   };
-  //   loader
-  //     .load()
-  //     .then(() => {
-  //       const google = window.google;
-
-  //       if (googleMap.current) {
-  //         new google.maps.Map(googleMap.current, mapOptions);
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       console.log("Error ", e);
-  //     });
-  // }, []);
+  // if (!isLoaded) return <div>Loading...</div>;
+  // return <Map />;
 
   return (
     <div>
@@ -188,7 +194,7 @@ const Home: NextPage = () => {
         </Swiper>
       </div>
 
-      <div id="ours" className="grid md:grid-cols-12 flex-row bg-green-700">
+      <div id="ours" className="grid md:grid-cols-12 flex-row bg-[#36442A]">
         <div className="md:col-span-2 md:w-full md:h-full h-60 grid bg-[url('/farmField.jpg')] bg-cover bg-center" />
         <div className="md:col-span-10 p-8 md:p-16">
           <div id="vision" className="mt-8">
@@ -206,22 +212,25 @@ const Home: NextPage = () => {
               Our Value
             </div>
             <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
-              <ValueComp title="TRUST" img="/icons/handshake.png" />
-              <ValueComp title="QUALITY" img="/icons/thumbUp.png" />
+              <ValueComp title="TRUST" img="/icons/trust.png" />
+              <ValueComp title="QUALITY" img="/icons/quality.png" />
             </div>
             <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
               <ValueComp title="HUMANITY" img="/icons/humanity.png" />
-              <ValueComp title="SUSTAINABILITY" img="/icons/responsive.png" />
+              <ValueComp
+                title="SUSTAINABILITY"
+                img="/icons/sustainability.png"
+              />
             </div>
-            <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
+            {/* <div className="grid grid-cols-6 mt-4 text-xl md:text-3xl">
               <ValueComp title="ENVIRONMENT" img="/icons/environment.png" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
       <div>
-        <div id="product" className="pt-8">
-          <div className="flex justify-center text-4xl md:text-6xl pb-8 md:pb-0 font-semibold md:mb-12 text-green-600">
+        <div id="product">
+          <div className="flex justify-center text-4xl md:text-6xl py-8 font-semibold md:pb-12 text-gray-200 bg-green-800">
             Our Products
           </div>
 
@@ -259,7 +268,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="md:col-span-10 p-8 md:p-0">
-                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                    <div className="text-end font-bold text-5xl mb-4 md:mb-0 md:my-20 md:mr-16">
                       Moringa Oleifera
                     </div>
                     <div className="grid md:grid-cols-12">
@@ -325,7 +334,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="md:col-span-10 p-8 md:p-0">
-                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                    <div className="text-end font-bold text-5xl mb-4 md:mb-0 md:my-20 md:mr-16">
                       Copra
                     </div>
                     <div className="grid md:grid-cols-12">
@@ -392,7 +401,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="md:col-span-10 p-8 md:p-0">
-                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                    <div className="text-end font-bold text-5xl mb-4 md:mb-0 md:my-20 md:mr-16">
                       Nutmeg
                     </div>
                     <div className="grid md:grid-cols-12">
@@ -461,7 +470,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="md:col-span-10 p-8 md:p-0">
-                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                    <div className="text-end font-bold text-5xl mb-4 md:mb-0 md:my-20 md:mr-16">
                       Cinnamon
                     </div>
                     <div className="grid md:grid-cols-12">
@@ -530,7 +539,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="md:col-span-10 p-8 md:p-0">
-                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                    <div className="text-end font-bold text-5xl mb-4 md:mb-0 md:my-20 md:mr-16">
                       Cloves
                     </div>
                     <div className="grid md:grid-cols-12">
@@ -595,7 +604,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="md:col-span-10 p-8 md:p-0">
-                    <div className="text-end font-bold text-5xl md:my-20 md:mr-16">
+                    <div className="text-end font-bold text-5xl mb-4 md:mb-0 md:my-20 md:mr-16">
                       Tobacco
                     </div>
                     <div className="grid md:grid-cols-12">
@@ -653,86 +662,141 @@ const Home: NextPage = () => {
           </div>
           <div className="flex justify-center mt-4 text-xl md:text-3xl"></div>
         </div> */}
-
-        {/* <div id="__next" style={{ height: 300 }}>
-          <div id="map" ref={googleMap} />
-        </div> */}
       </div>
 
-      <div id="footer" className="grid md:grid-cols-10 py-8 bg-green-50 px-10">
-        <div className="md:col-span-6 flex flex-row align-center">
-          <div className="w-8 h-8 md:w-12 md:h-12 pt-2 sm:w-10 md:mt-1">
+      <div id="footer" className="relative w-full h-full">
+        <div className="h-48 md:h-80 w-full bg-[url('/farmField.jpg')] bg-cover bg-center" />
+        <div className="md:absolute md:top-64 md:left-48 bg-[#0D1B1B] sm:bg-transparent pl-10 pt-10 md:pt-0 md:pl-0">
+          <div className="font-bold md:text-8xl text-6xl text-yellow-500 tracking-wider">
+            CONTACT
+          </div>
+          <div className="font-semibold text-2xl md:text-4xl text-gray-100 tracking-widest pt-2 md:pt-1">
+            Let's get in touch
+          </div>
+        </div>
+        <div className="grid flex-row md:grid-cols-12 pt-12 md:pt-28 pb-12 bg-[#0D1B1B] px-10">
+          <div className="md:col-span-4 flex flex-col align-center text-gray-200">
+            <div className="w-60 h-12 md:w-80 md:h-24 sm:w-10 md:mt-1">
+              <Image
+                src="/fortunasiaHorWhite.png"
+                width="128"
+                height="36"
+                layout="responsive"
+              />
+            </div>
+            {/* <div className="text-4xl md:text-6xl font-bold ml-4">
+              Fortunasia
+            </div> */}
+
+            <div className="font-semibold text-xl">
+              PT. BUMITAMA FORTUNA ASIA
+            </div>
+            <div id="phone">
+              <div className="font-semibold mt-2">Phone</div>
+              <div>
+                <div>0812-3291-6010</div>
+                <div>0822-5722-2236</div>
+                <div>0812-3946-1122</div>
+              </div>
+            </div>
+            <div className="mt-2">info@fortunasia.com</div>
+            <div className="mt-2">
+              Pergudangan Osowilangun Permai blok D no. 24, Tambak Osowilangun,
+              Kec. Benowo, Kota Surabaya, Jawa Timur 60191
+            </div>
+            <div id="icons" className="flex flex-row mt-2">
+              <div className="w-8 h-8 mt-2 mr-4">
+                <Image
+                  src="/icons/facebook.png"
+                  width="60"
+                  height="60"
+                  layout="responsive"
+                />
+              </div>
+              <div className="w-8 h-8 mt-2 mr-4">
+                <Image
+                  src="/icons/linkedIn.png"
+                  width="60"
+                  height="60"
+                  layout="responsive"
+                />
+              </div>
+              <div className="w-8 h-8 mt-2 mr-4">
+                <Image
+                  src="/icons/telegram.png"
+                  width="60"
+                  height="60"
+                  layout="responsive"
+                />
+              </div>
+              <div className="w-8 h-8 mt-2 mr-4">
+                <Image
+                  src="/icons/twitter.png"
+                  width="60"
+                  height="60"
+                  layout="responsive"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-4">
+            <div id="__next" className="w-full h-full flex justify-center">
+              {/* <div id="map" ref={googleMap} /> */}
+              <Map />
+            </div>
+            {/* <GoogleMap zoom={10} center={{ lat: 0, lng: -80 }}></GoogleMap> */}
+          </div>
+
+          <div className="md:col-span-4 mt-4 md:m-0 text-gray-200">
+            <form
+              method="post"
+              className="flex flex-col"
+              onSubmit={(e) => {
+                console.log("Inquiry");
+                e.preventDefault();
+                mail().catch(console.error);
+              }}
+            >
+              <label htmlFor="first" className="font-semibold text-2xl">
+                Email
+              </label>
+              <input
+                type="text"
+                id="first"
+                name="first"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Please enter your email"
+              />
+              <label htmlFor="last" className="font-semibold text-2xl mt-2">
+                Message
+              </label>
+              <textarea
+                id="last"
+                name="last"
+                className="shadow appearance-none border rounded w-full py-2 px-3 h-44 text-gray-700 leading-tight focus:outline-none focus:shadow-outline inline-block align-top"
+                placeholder="Plase give us your message"
+              />
+              <button
+                type="submit"
+                className="mt-8 bg-[#83BC75] hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+        <div className="flex text-2xl font-semi pl-8 py-4 bg-white tracking-widest">
+          <div className="w-4 h-4 mr-1 mt-1">
             <Image
-              src="/fortunasia.png"
+              src="/icons/copyright.png"
               width="60"
               height="60"
               layout="responsive"
             />
-          </div>
-          <div className="text-4xl md:text-6xl font-bold ml-4">Fortunasia</div>
+          </div>{" "}
+          2022 Fortuna Asia. All rights reserved
         </div>
-        <div className="md:col-span-4 mt-4 md:m-0">
-          <div id="contacts" className="md:text-2xl text-base font-bold">
-            CONTACTS
-          </div>
-          <div className="font-semibold">PT. BUMITAMA FORTUNA ASIA</div>
-          <div id="phone">
-            <div className="font-semibold mt-2">Phone</div>
-            <div>
-              <div>0822-5722-2236</div>
-              <div>0812-3946-1122</div>
-            </div>
-          </div>
-          <div className="mt-1">info@fortunasia.com</div>
-          <div className="mt-1">
-            Pergudangan Osowilangun Permai blok D no. 24, Tambak Osowilangun,
-            Kec. Benowo, Kota Surabaya, Jawa Timur 60191
-          </div>
-          <div id="icons" className="flex flex-row mt-2">
-            <div className="w-8 h-8 mt-2 mr-4">
-              <Image
-                src="/icons/facebook.png"
-                width="60"
-                height="60"
-                layout="responsive"
-              />
-            </div>
-            <div className="w-8 h-8 mt-2 mr-4">
-              <Image
-                src="/icons/linkedIn.png"
-                width="60"
-                height="60"
-                layout="responsive"
-              />
-            </div>
-            <div className="w-8 h-8 mt-2 mr-4">
-              <Image
-                src="/icons/telegram.png"
-                width="60"
-                height="60"
-                layout="responsive"
-              />
-            </div>
-            <div className="w-8 h-8 mt-2 mr-4">
-              <Image
-                src="/icons/twitter.png"
-                width="60"
-                height="60"
-                layout="responsive"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="flex text-2xl font-semi pl-8 pb-4 bg-white tracking-widest">
-        <div className="w-4 h-4 mr-1 mt-1">
-          <Image
-            src="/icons/copyright.png"
-            width="60"
-            height="60"
-            layout="responsive"
-          />
-        </div> 2022 Fortuna Asia. All rights reserved
       </div>
     </div>
   );
