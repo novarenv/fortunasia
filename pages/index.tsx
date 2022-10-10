@@ -694,9 +694,9 @@ const Home: NextPage = () => {
             <div id="phone">
               <div className="font-semibold mt-2">Phone</div>
               <div>
-                <div>0812-3291-6010</div>
-                <div>0822-5722-2236</div>
-                <div>0812-3946-1122</div>
+                <div>+62812-3291-6010</div>
+                <div>+62822-5722-2236</div>
+                <div>+62812-3946-1122</div>
               </div>
             </div>
             <div className="mt-2">info@fortunasia.com</div>
